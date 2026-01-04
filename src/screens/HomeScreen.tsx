@@ -18,7 +18,7 @@ export default function HomeScreen({ user, navigation }: Props) {
         data={user.climbs}
         keyExtractor={(item: Climb) => item.id}
         renderItem={({ item }) => (
-          <ClimbComponent climb = {item} />
+          <ClimbComponent climb = {item} onToogleState={() => user.toogleClimbState(item.id)} />
         )}
       />
     </View>

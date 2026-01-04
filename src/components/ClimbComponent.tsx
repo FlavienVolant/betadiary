@@ -1,26 +1,37 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Climb } from "../domain/climb";
 
 type Props = {
-  climb: Climb;
+	climb: Climb;
+	onToogleState: () => void;
 };
 
-export default function ClimbComponent({ climb }: Props) {
+export default function ClimbComponent({ climb, onToogleState }: Props) {
     return (
         <View style={styles.container}>
-        <Text style={styles.name}>{climb.name}</Text>
-        <Text style={styles.details}>
-            {climb.type} - {climb.difficulty} [{climb.state}]
-        </Text>
-        {climb.tags.length > 0 && (
-            <View style={styles.tagsContainer}>
-            {climb.tags.map(tag => (
-                <View key={tag.id} style={styles.tag}>
-                <Text style={styles.tagText}>{tag.name}</Text>
-                </View>
-            ))}
-            </View>
-        )}
+        	<Text style={styles.name}>{climb.name}</Text>
+
+			<Text style={styles.details}>
+				{climb.type} - {climb.difficulty}
+			</Text>
+
+			{climb.tags.length > 0 && (<View style={styles.tagsContainer}>
+				{climb.tags.map(tag => (
+					<View key={tag.id} style={styles.tag}>
+						<Text style={styles.tagText}>{tag.name}</Text>
+					</View>
+				))}
+			</View>)}
+
+			<Pressable
+				onPress={onToogleState}
+				style={[styles.stateButton,{ backgroundColor: climb.state === "WORKING" ? "#FFA500" : "#4CAF50" }]}
+			>
+				<Text style={styles.stateButtonText}>
+					{climb.state === "WORKING" ? "Work in progress" : "Done"}
+				</Text>
+			</Pressable>
+
         </View>
     );
 }
@@ -46,4 +57,11 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   tagText: { color: "#fff", fontSize: 12 },
+  stateButton: {
+    padding: 8,
+    marginTop: 8,
+    borderRadius: 6,
+    alignItems: "center",
+  },
+  stateButtonText: { color: "#fff", fontWeight: "bold" },
 });

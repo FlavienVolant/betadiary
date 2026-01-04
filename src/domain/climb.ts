@@ -22,6 +22,6 @@ export function createClimb(
     return {id: crypto.randomUUID(), name, type, difficulty, state, tags};
 }
 
-export function toogleClimbState(climb: Climb) {
-    climb.state = (climb.state === "WORKING") ? "DONE" : "WORKING";
+export function otherClimbState(climb_state: ClimbState): ClimbState {
+    return (climb_state === "WORKING") ? "DONE" : "WORKING";
 }

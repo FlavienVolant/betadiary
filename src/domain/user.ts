@@ -1,4 +1,4 @@
-import { Climb } from "./climb";
+import { Climb, otherClimbState } from "./climb";
 
 export class User {
     private _id: string;
@@ -13,6 +13,14 @@ export class User {
 
     addClimb(climb: Climb) {
         this._climbs.push(climb);
+    }
+
+    toogleClimbState(climb_id: string) {
+        this._climbs = this._climbs.map((c: Climb) => {
+            if(c.id === climb_id)
+                return { ...c, state: otherClimbState(c.state) };
+            return c;                
+        });
     }
 
     get id(): string {
