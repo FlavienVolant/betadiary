@@ -1,4 +1,4 @@
-import AddClimbScreen from "@/src/screens/AddClimScreen";
+import AddClimbScreen from "@/src/screens/AddClimbScreen";
 import HomeScreen from "@/src/screens/HomeScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
