@@ -7,24 +7,25 @@ import { User } from "../domain/user";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home"> & {
 	user: User;
+  	toggleClimbState: (id:string) => void;
 }
 
-export default function HomeScreen({ user, navigation }: Props) {
-  return (
-    <View style={styles.container}>
-      <Button title="Ajouter une voie" onPress={() => navigation.navigate("AddClimb")} />
+export default function HomeScreen({ user, toggleClimbState, navigation }: Props) {
+  	return (
+		<View style={styles.container}>
+			<Button title="Add a Climb" onPress={() => navigation.navigate("AddClimb")} />
 
-      <FlatList
-        data={user.climbs}
-        keyExtractor={(item: Climb) => item.id}
-        renderItem={({ item }) => (
-          <ClimbComponent climb = {item} onToogleState={() => user.toogleClimbState(item.id)} />
-        )}
-      />
-    </View>
-  );
+			<FlatList
+				data={user.climbs}
+				keyExtractor={(item: Climb) => item.id}
+				renderItem={({ item }) => (
+					<ClimbComponent climb = {item} onToogleState={() => toggleClimbState(item.id)} />
+				)}
+			/>
+		</View>
+  	);
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff" },
+  	container: { flex: 1, padding: 20, backgroundColor: "#fff" },
 });

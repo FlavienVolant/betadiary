@@ -11,11 +11,15 @@ export class User {
         this._climbs = climbs;
     }
 
+    static fromUser(user: User) {
+        return new User(user.id, user._username, user._climbs);
+    }
+
     addClimb(climb: Climb) {
         this._climbs.push(climb);
     }
 
-    toogleClimbState(climb_id: string) {
+    toggleClimbState(climb_id: string) {
         this._climbs = this._climbs.map((c: Climb) => {
             if(c.id === climb_id)
                 return { ...c, state: otherClimbState(c.state) };

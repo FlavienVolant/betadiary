@@ -2,15 +2,14 @@ import { RootStackParamList } from "@/app/_layout";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { Button, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { ClimbState, ClimbType, createClimb } from "../domain/climb";
+import { Climb, ClimbState, ClimbType, createClimb } from "../domain/climb";
 import { Tag, TAGS_CATALOG } from "../domain/tag";
-import { User } from "../domain/user";
 
 type Props = NativeStackScreenProps<RootStackParamList, "AddClimb"> & {
-  user: User;
+    onAddClimb: (climb: Climb) => void;
 };
 
-export default function AddClimbScreen({ user, navigation }: Props) {
+export default function AddClimbScreen({ onAddClimb, navigation }: Props) {
     const [name, setName] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [type, setType] = useState<ClimbType>("ROUTE");
@@ -29,9 +28,8 @@ export default function AddClimbScreen({ user, navigation }: Props) {
         if(!name || !difficulty) return;
 
         const climb = createClimb(name, type, difficulty, state, selected_tags);
-        user.addClimb(climb);
-
-        navigation.popTo("Home");
+        onAddClimb(climb);
+        navigation.popTo("Home"); // todo move, not your job
     }
 
     return (
