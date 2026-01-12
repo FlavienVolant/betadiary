@@ -1,15 +1,15 @@
-import { RootStackParamList } from "@/app/_layout";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useUser } from "@/src/context/UserContext";
+import { ClimbState, ClimbType, createClimb } from "@/src/domain/climb";
+import { Tag, TAGS_CATALOG } from "@/src/domain/tag";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Button, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { Climb, ClimbState, ClimbType, createClimb } from "../domain/climb";
-import { Tag, TAGS_CATALOG } from "../domain/tag";
 
-type Props = NativeStackScreenProps<RootStackParamList, "AddClimb"> & {
-    onAddClimb: (climb: Climb) => void;
-};
+export default function AddClimbScreen() {
 
-export default function AddClimbScreen({ onAddClimb, navigation }: Props) {
+    const { onAddClimb } = useUser();
+    const router = useRouter();
+
     const [name, setName] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [type, setType] = useState<ClimbType>("ROUTE");
@@ -29,7 +29,7 @@ export default function AddClimbScreen({ onAddClimb, navigation }: Props) {
 
         const climb = createClimb(name, type, difficulty, state, selected_tags);
         onAddClimb(climb);
-        navigation.popTo("Home"); // todo move, not your job
+        router.back();
     }
 
     return (
@@ -56,16 +56,16 @@ export default function AddClimbScreen({ onAddClimb, navigation }: Props) {
         <Text style={styles.sectionTitle}>Tags :</Text>
         <View style={styles.tagsContainer}>
             {TAGS_CATALOG.map(tag => {
-            const selected = selected_tags.some(t => t.id === tag.id);
-            return (
-                <Pressable
-                key={tag.id}
-                onPress={() => toogleTag(tag)}
-                style={[styles.tagItem, selected && styles.tagSelected]}
-                >
-                <Text style={{ color: selected ? "#fff" : "#000" }}>{tag.name}</Text>
-                </Pressable>
-            );
+                const selected = selected_tags.some(t => t.id === tag.id);
+                return (
+                    <Pressable
+                    key={tag.id}
+                    onPress={() => toogleTag(tag)}
+                    style={[styles.tagItem, selected && styles.tagSelected]}
+                    >
+                    <Text style={{ color: selected ? "#fff" : "#000" }}>{tag.name}</Text>
+                    </Pressable>
+                );
             })}
         </View>
 
@@ -80,11 +80,11 @@ export default function AddClimbScreen({ onAddClimb, navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff" },
-  input: { borderWidth: 1, borderColor: "#ccc", marginVertical: 5, padding: 8, borderRadius: 4 },
-  buttonRow: { flexDirection: "row", justifyContent: "space-between", marginVertical: 10 },
-  sectionTitle: { fontSize: 16, fontWeight: "bold", marginTop: 10 },
-  tagsContainer: { flexDirection: "row", flexWrap: "wrap", marginVertical: 10 },
-  tagItem: { padding: 8, margin: 4, borderRadius: 8, backgroundColor: "#ddd" },
-  tagSelected: { backgroundColor: "#4CAF50" },
+    container: { flex: 1, padding: 20, backgroundColor: "#fff" },
+    input: { borderWidth: 1, borderColor: "#ccc", marginVertical: 5, padding: 8, borderRadius: 4 },
+    buttonRow: { flexDirection: "row", justifyContent: "space-between", marginVertical: 10 },
+    sectionTitle: { fontSize: 16, fontWeight: "bold", marginTop: 10 },
+    tagsContainer: { flexDirection: "row", flexWrap: "wrap", marginVertical: 10 },
+    tagItem: { padding: 8, margin: 4, borderRadius: 8, backgroundColor: "#ddd" },
+    tagSelected: { backgroundColor: "#4CAF50" },
 });
