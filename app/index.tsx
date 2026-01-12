@@ -1,8 +1,9 @@
 import ClimbComponent from "@/src/components/ClimbComponent";
 import { useUser } from "@/src/context/UserContext";
 import { Climb } from "@/src/domain/climb";
+import { STYLES } from "@/src/theme/theme";
 import { useRouter } from "expo-router";
-import { Button, FlatList, StyleSheet, View } from "react-native";
+import { Button, FlatList, View } from "react-native";
 
 export default function HomeScreen() {
 
@@ -10,7 +11,7 @@ export default function HomeScreen() {
     const router = useRouter();
 
   	return (
-		<View style={styles.container}>
+		<View style={STYLES.container}>
 			<Button title="Add a Climb" onPress={() => router.push("/add-climb")} />
 
 			<FlatList
@@ -23,7 +24,3 @@ export default function HomeScreen() {
 		</View>
   	);
 }
-
-const styles = StyleSheet.create({
-  	container: { flex: 1, padding: 20, backgroundColor: "#fff" },
-});

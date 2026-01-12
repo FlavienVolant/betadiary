@@ -1,9 +1,10 @@
 import { useUser } from "@/src/context/UserContext";
 import { ClimbState, ClimbType, createClimb } from "@/src/domain/climb";
 import { Tag, TAGS_CATALOG } from "@/src/domain/tag";
+import { STYLES } from "@/src/theme/theme";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Button, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, Pressable, Text, TextInput, View } from "react-native";
 
 export default function AddClimbScreen() {
 
@@ -33,58 +34,50 @@ export default function AddClimbScreen() {
     }
 
     return (
-        <View style={styles.container}>
-        <TextInput
-            placeholder="Climb Name"
-            value={name}
-            onChangeText={setName}
-            style={styles.input}
-        />
+        <View style={STYLES.container}>
+            <TextInput
+                placeholder="Climb Name"
+                value={name}
+                onChangeText={setName}
+                style={STYLES.input}
+            />
 
-        <View style={styles.buttonRow}>
-            <Button title="ROUTE" onPress={() => setType("ROUTE")} color={type === "ROUTE" ? "#FF7F50" : "#999"} />
-            <Button title="BOULDER" onPress={() => setType("BOULDER")} color={type === "BOULDER" ? "#FF7F50" : "#999"} />
-        </View>
+            <View style={STYLES.buttonRow}>
+                <Button title="ROUTE" onPress={() => setType("ROUTE")} color={type === "ROUTE" ? "#FF7F50" : "#999"} />
+                <Button title="BOULDER" onPress={() => setType("BOULDER")} color={type === "BOULDER" ? "#FF7F50" : "#999"} />
+            </View>
 
-        <TextInput
-            placeholder="Difficulty"
-            value={difficulty}
-            onChangeText={setDifficulty}
-            style={styles.input}
-        />
+            <TextInput
+                placeholder="Difficulty"
+                value={difficulty}
+                onChangeText={setDifficulty}
+                style={STYLES.input}
+            />
 
-        <Text style={styles.sectionTitle}>Tags :</Text>
-        <View style={styles.tagsContainer}>
-            {TAGS_CATALOG.map(tag => {
-                const selected = selected_tags.some(t => t.id === tag.id);
-                return (
-                    <Pressable
-                    key={tag.id}
-                    onPress={() => toogleTag(tag)}
-                    style={[styles.tagItem, selected && styles.tagSelected]}
-                    >
-                    <Text style={{ color: selected ? "#fff" : "#000" }}>{tag.name}</Text>
-                    </Pressable>
-                );
-            })}
-        </View>
+            <Text style={STYLES.sectionTitle}>Tags :</Text>
+            <View style={STYLES.tagsContainer}>
+                {TAGS_CATALOG.map((tag:Tag) => {
+                    const selected = selected_tags.some(t => t.id === tag.id);
+                    return (
+                        <Pressable
+                            key={tag.id}
+                            onPress={() => toogleTag(tag)}
+                            style={[STYLES.tagItem, selected && STYLES.tagSelected]}
+                            >
+                            <Text style={{ color: selected ? "#fff" : "#000" }}>
+                                {tag.name}
+                            </Text>
+                        </Pressable>
+                    );
+                })}
+            </View>
 
-        <View style={styles.buttonRow}>
-            <Button title="WORKING" onPress={() => setState("WORKING")} color={state === "WORKING" ? "#FF7F50" : "#999"} />
-            <Button title="DONE" onPress={() => setState("DONE")} color={state === "DONE" ? "#FF7F50" : "#999"} />
-        </View>
+            <View style={STYLES.buttonRow}>
+                <Button title="WORKING" onPress={() => setState("WORKING")} color={state === "WORKING" ? "#FF7F50" : "#999"} />
+                <Button title="DONE" onPress={() => setState("DONE")} color={state === "DONE" ? "#FF7F50" : "#999"} />
+            </View>
 
-        <Button title="Add" onPress={addClimb} />
+            <Button title="Add" onPress={addClimb} />
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: { flex: 1, padding: 20, backgroundColor: "#fff" },
-    input: { borderWidth: 1, borderColor: "#ccc", marginVertical: 5, padding: 8, borderRadius: 4 },
-    buttonRow: { flexDirection: "row", justifyContent: "space-between", marginVertical: 10 },
-    sectionTitle: { fontSize: 16, fontWeight: "bold", marginTop: 10 },
-    tagsContainer: { flexDirection: "row", flexWrap: "wrap", marginVertical: 10 },
-    tagItem: { padding: 8, margin: 4, borderRadius: 8, backgroundColor: "#ddd" },
-    tagSelected: { backgroundColor: "#4CAF50" },
-});
