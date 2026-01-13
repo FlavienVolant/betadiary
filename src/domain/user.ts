@@ -1,42 +1,42 @@
-import { Climb, otherClimbState } from "./climb";
+import { Climb, ClimbFromJson, otherClimbState } from "./climb";
 
 export class User {
-    private _id: string;
-    private _username: string;
-    private _climbs: Climb[];
+    private id: string;
+    private username: string;
+    private climbs: Climb[];
 
     constructor(id: string, username: string, climbs: Climb[]) {
-        this._id = id;
-        this._username = username;
-        this._climbs = climbs;
+        this.id = id;
+        this.username = username;
+        this.climbs = climbs;
     }
 
-    static fromUser(user: User) {
-        return new User(user.id, user._username, user._climbs);
+    static fromUser(user: User): User {
+        return new User(user.id, user.username, user.climbs);
+    }
+
+    static fromJSON(json: any): User {
+        return new User(json.id, json.username, json.climbs.map((c: any) => ClimbFromJson(c)))
+    }
+
+    toJSON() {
+        return {
+            id: this.id,
+            username: this.username,
+            climbs: this.climbs
+        };
     }
 
     addClimb(climb: Climb) {
-        this._climbs.push(climb);
+        this.climbs.push(climb);
     }
 
     toggleClimbState(climb_id: string) {
-        this._climbs = this._climbs.map((c: Climb) => {
+        this.climbs = this.climbs.map((c: Climb) => {
             if(c.id === climb_id)
                 return { ...c, state: otherClimbState(c.state) };
             return c;                
         });
-    }
-
-    get id(): string {
-        return this._id;
-    }
-
-    get username(): string {
-        return this._username;
-    }
-
-    get climbs(): Climb[] {
-        return this._climbs;
     }
 }
 

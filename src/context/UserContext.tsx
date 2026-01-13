@@ -1,6 +1,7 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { Climb } from "../domain/climb";
 import { createUser, User } from "../domain/user";
+import { loadUser, saveUser } from "../storage/userStorage";
 
 type UserContextType = {
     user: User;
@@ -22,6 +23,16 @@ type Props = { children: ReactNode };
 
 export const UserProvider = ({ children }: Props) => {
     const [user, setUser] = useState<User>(createUser());
+
+    useEffect(() => {
+        loadUser().then(stored => {
+            if (stored) setUser(stored);
+        });
+    }, []);
+
+    useEffect(() => {
+        saveUser(user);
+    }, [user]);
 
 	const onAddClimb = (climb: Climb) => {
 		setUser((prev: User) => {

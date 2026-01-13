@@ -25,3 +25,7 @@ export function createClimb(
 export function otherClimbState(climb_state: ClimbState): ClimbState {
     return (climb_state === "WORKING") ? "DONE" : "WORKING";
 }
+
+export function ClimbFromJson(json: any): Climb {
+    return {id: json.id, name: json.name, type: json.type, difficulty: json.difficulty, state: json.state, tags:json.tags};
+}
