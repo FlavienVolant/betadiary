@@ -13,6 +13,7 @@ export default function HomeScreen() {
 
 			<FlatList
 				data={user.climbs}
+				extraData={user}
 				keyExtractor={(item: Climb) => item.id}
 				renderItem={({ item }) => (
 					<ClimbComponent 
