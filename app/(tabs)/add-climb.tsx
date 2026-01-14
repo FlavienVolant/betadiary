@@ -30,7 +30,14 @@ export default function AddClimbScreen() {
 
         const climb = createClimb(name, type, difficulty, state, selected_tags);
         onAddClimb(climb);
-        router.back();
+
+        setName("");
+        setDifficulty("");
+        setType("ROUTE");
+        setState("WORKING");
+        setSelectedTags([]);
+
+        router.navigate("/");
     }
 
     return (
