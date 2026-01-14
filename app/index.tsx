@@ -7,7 +7,7 @@ import { Button, FlatList, View } from "react-native";
 
 export default function HomeScreen() {
 
-    const {user, toggleClimbState} = useUser();
+    const {user, toggleClimbState, onRemoveClimb} = useUser();
     const router = useRouter();
 
   	return (
@@ -18,7 +18,11 @@ export default function HomeScreen() {
 				data={user.climbs}
 				keyExtractor={(item: Climb) => item.id}
 				renderItem={({ item }) => (
-					<ClimbComponent climb = {item} onToogleState={() => toggleClimbState(item.id)} />
+					<ClimbComponent 
+						climb = {item} 
+						onToogleState={() => toggleClimbState(item.id)} 
+						onRemoveClimb={() => onRemoveClimb(item.id)}
+					/>
 				)}
 			/>
 		</View>

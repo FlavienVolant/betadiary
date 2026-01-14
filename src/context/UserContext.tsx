@@ -6,6 +6,7 @@ import { loadUser, saveUser } from "../storage/userStorage";
 type UserContextType = {
     user: User;
     onAddClimb: (climb: Climb) => void;
+    onRemoveClimb: (climbId: string) => void;
     toggleClimbState: (climbId: string) => void;
 }
 
@@ -41,6 +42,13 @@ export const UserProvider = ({ children }: Props) => {
 		});
 	};
 
+    const onRemoveClimb = (climbId: string) => {
+        setUser((prev: User) => {
+            prev.removeClimb(climbId);
+            return User.fromUser(prev);
+        });
+    };
+
 	const toggleClimbState = (climbId: string)  => {
 		setUser((prev: User) => {
 			prev.toggleClimbState(climbId);
@@ -49,7 +57,7 @@ export const UserProvider = ({ children }: Props) => {
 	};
 
     return (
-        <UserContext.Provider value={{ user, onAddClimb, toggleClimbState}} >
+        <UserContext.Provider value={{ user, onAddClimb, onRemoveClimb, toggleClimbState}} >
             {children}
         </UserContext.Provider>
     );

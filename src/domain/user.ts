@@ -1,9 +1,9 @@
 import { Climb, ClimbFromJson, otherClimbState } from "./climb";
 
 export class User {
-    private id: string;
-    private username: string;
-    private climbs: Climb[];
+    id: string;
+    username: string;
+    climbs: Climb[];
 
     constructor(id: string, username: string, climbs: Climb[]) {
         this.id = id;
@@ -29,6 +29,10 @@ export class User {
 
     addClimb(climb: Climb) {
         this.climbs.push(climb);
+    }
+
+    removeClimb(climb_id: string) {
+        this.climbs = this.climbs.filter((c: Climb) => c.id !== climb_id);
     }
 
     toggleClimbState(climb_id: string) {
