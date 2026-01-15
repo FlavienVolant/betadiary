@@ -1,15 +1,15 @@
 import { StyleSheet } from "react-native";
 
 export const COLORS = {
-	primary: "#FF7F50",
-	secondary: "#4CAF50",
+	primary: "#00ac1d",
+	secondary: "#c99a00",
 	background: "#fff",
 	text: "#000",
 	textLight: "#666",
 	border: "#ccc",
 	disabled: "#999",
 	tagDefault: "#eee",
-  	tagSelected: "#4CAF50",
+  	tagSelected: "#db0493",
 };
 
 export const SIZES = {
@@ -81,5 +81,45 @@ export const STYLES = StyleSheet.create({
 	dateText: {
 		fontSize: SIZES.fontSection,
 		color: COLORS.textLight,
-	}
+	},
+	climbHeader: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+		alignItems: "center",
+	},
+
+	climbDates: {
+		marginTop: 8,
+		gap: 6,
+	},
+
+	climbFooter: {
+		marginTop: 12,
+		alignItems: "flex-end",
+	},
+
+	climbTitleRow: {
+		flexDirection: "row",
+		alignItems: "center",
+		gap: 8,
+	},
+
+	climbStateBadge: {
+		paddingHorizontal: 12,
+		paddingVertical: 6,
+		borderRadius: 14,
+		backgroundColor: COLORS.secondary,
+		minHeight: 32,
+		justifyContent: "center",
+	},
+
+	climbStateDone: {
+		backgroundColor: COLORS.primary,
+	},
+
+	climbStateText: {
+		color: "#fff",
+		fontSize: 13,
+		fontWeight: "600",
+	},
 });
