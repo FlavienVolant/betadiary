@@ -40,9 +40,9 @@ export class User {
             if(c.id === climb_id) {
                 const newClimbState = otherClimbState(c.state);
                 if (newClimbState === "DONE")
-                    return { ...c, state: newClimbState, date_done: new Date()};
+                    return { ...c, state: newClimbState, send_date: new Date()};
                 else
-                    return { ...c, state: newClimbState, date_done: undefined};
+                    return { ...c, state: newClimbState, send_date: undefined};
             }
             return c;
         });

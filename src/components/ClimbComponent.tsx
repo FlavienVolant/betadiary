@@ -18,19 +18,19 @@ export default function ClimbComponent({ climb, onToogleState, onRemoveClimb }: 
 				{climb.type} - {climb.difficulty} - {climb.state}
 			</Text>
 
-			{climb.state === "WORKING" && climb.date_working && (
+			{climb.state === "WORKING" && climb.start_working && (
 				<Text style={STYLES.climbInfo}>
-				Started Working : <DateComponent date={climb.date_working} />
+				Started Working : <DateComponent date={climb.start_working} />
 				</Text>
 			)}
 
-			{climb.state === "DONE" && climb.date_working && climb.date_done && (
+			{climb.state === "DONE" && climb.start_working && climb.send_date && (
 				<>
 				<Text style={STYLES.climbInfo}>
-					Started Working : <DateComponent date={climb.date_working} />
+					Started Working : <DateComponent date={climb.start_working} />
 				</Text>
 				<Text style={STYLES.climbInfo}>
-					Send : <DateComponent date={climb.date_done} />
+					Send : <DateComponent date={climb.send_date} />
 				</Text>
 				</>
 			)}

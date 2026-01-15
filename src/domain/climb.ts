@@ -10,8 +10,8 @@ export interface Climb {
     difficulty: string;
     state: ClimbState;
     tags: Tag[];
-    date_working: Date;
-    date_done: Date | undefined;
+    start_working: Date;
+    send_date: Date | undefined;
 }
 
 export function createClimb(
@@ -23,7 +23,7 @@ export function createClimb(
     date_working: Date,
     date_done: Date | undefined
 ): Climb {
-    return {id: crypto.randomUUID(), name, type, difficulty, state, tags, date_working, date_done};
+    return {id: crypto.randomUUID(), name, type, difficulty, state, tags, start_working: date_working, send_date: date_done};
 }
 
 export function otherClimbState(climb_state: ClimbState): ClimbState {
@@ -38,7 +38,7 @@ export function ClimbFromJson(json: any): Climb {
         difficulty: json.difficulty,
         state: json.state,
         tags:json.tags,
-        date_working: json.date_working,
-        date_done: json.date_done
+        start_working: json.date_working,
+        send_date: json.date_done
     };
 }
