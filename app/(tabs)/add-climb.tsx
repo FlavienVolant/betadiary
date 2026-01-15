@@ -28,7 +28,10 @@ export default function AddClimbScreen() {
     const addClimb = () => {
         if(!name || !difficulty) return;
 
-        const climb = createClimb(name, type, difficulty, state, selected_tags);
+        const date_working = new Date();
+        const date_done = (state === "WORKING")? undefined : date_working;
+
+        const climb = createClimb(name, type, difficulty, state, selected_tags, date_working, date_done);
         onAddClimb(climb);
 
         setName("");

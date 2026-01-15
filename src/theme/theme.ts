@@ -78,4 +78,8 @@ export const STYLES = StyleSheet.create({
 		fontSize: 14,
 		color: COLORS.textLight,
 	},
+	dateText: {
+		fontSize: SIZES.fontSection,
+		color: COLORS.textLight,
+	}
 });

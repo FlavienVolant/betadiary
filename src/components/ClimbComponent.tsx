@@ -1,6 +1,7 @@
 import { Button, Text, View } from "react-native";
 import { Climb } from "../domain/climb";
 import { COLORS, STYLES } from "../theme/theme";
+import DateComponent from "./DateComponent";
 import IconButton from "./IconButton";
 
 type Props = {
@@ -16,6 +17,23 @@ export default function ClimbComponent({ climb, onToogleState, onRemoveClimb }: 
 			<Text style={STYLES.climbInfo}>
 				{climb.type} - {climb.difficulty} - {climb.state}
 			</Text>
+
+			{climb.state === "WORKING" && climb.date_working && (
+				<Text style={STYLES.climbInfo}>
+				Started Working : <DateComponent date={climb.date_working} />
+				</Text>
+			)}
+
+			{climb.state === "DONE" && climb.date_working && climb.date_done && (
+				<>
+				<Text style={STYLES.climbInfo}>
+					Started Working : <DateComponent date={climb.date_working} />
+				</Text>
+				<Text style={STYLES.climbInfo}>
+					Send : <DateComponent date={climb.date_done} />
+				</Text>
+				</>
+			)}
 
 			{climb.tags && climb.tags.length > 0 && (
 				<View style={STYLES.tagsContainer}>

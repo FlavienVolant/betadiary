@@ -37,9 +37,14 @@ export class User {
 
     toggleClimbState(climb_id: string) {
         this.climbs = this.climbs.map((c: Climb) => {
-            if(c.id === climb_id)
-                return { ...c, state: otherClimbState(c.state) };
-            return c;                
+            if(c.id === climb_id) {
+                const newClimbState = otherClimbState(c.state);
+                if (newClimbState === "DONE")
+                    return { ...c, state: newClimbState, date_done: new Date()};
+                else
+                    return { ...c, state: newClimbState, date_done: undefined};
+            }
+            return c;
         });
     }
 }
